@@ -1,0 +1,13 @@
+rexcorp-legacy
+Copyright 2026 Phạm Huy Hoàng (modifications for the RexLearn course
+"DevSecOps Nền tảng"; RexCorp is a fictional company; commit dates of the
+RexCorp-era commits are part of the fictional story)
+
+This product is a modified version of OWASP NodeGoat
+(https://github.com/OWASP/NodeGoat), licensed under the Apache License,
+Version 2.0. Original work by the OWASP NodeGoat project contributors; the
+full upstream git history, including original authorship, is preserved in
+this repository.
+
+The upstream project did not ship a NOTICE file. The modifications are listed
+in CHANGES.md. This project is not affiliated with or endorsed by OWASP.
