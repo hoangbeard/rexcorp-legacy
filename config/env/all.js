@@ -9,6 +9,8 @@ module.exports = {
     cryptoKey: "a_secure_key_for_crypto_here",
     cryptoAlgo: "aes256",
     hostName: "localhost",
+    payrollApiUrl: "https://payroll.rexcorp.example/api/v2",
+    payrollApiKey: "rxpayroll_Z4kP9wQ2mX7vL3nB8tR5yH1cJ6dF0gS",
     environmentalScripts: []
 };
 
