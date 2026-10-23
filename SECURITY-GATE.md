@@ -74,7 +74,15 @@ Cách dùng mẫu:
 
 ### SAST: phân tích tĩnh mã nguồn (module 04)
 
-Chưa áp dụng.
+| Hạng mục | Quy định |
+|---|---|
+| Công cụ và phiên bản | Semgrep CE 1.182.0, image `semgrep/semgrep:1.182.0@sha256:4a34048c04fef049f71665047f074cffb00cc3d89482f965a5cd151d589237af`, gói rule `p/default` (dùng nội bộ theo Semgrep Rules License v1.0), `--metrics off`. Workflow riêng `.github/workflows/sast.yml`; các workflow cũ chưa sửa ở bước này |
+| Chạy ở đâu | Pull request: gate so với commit gốc. Push lên `main` và hằng tuần (thứ Hai 03:17 UTC): kiểm kê toàn bộ finding mọi mức, không chặn |
+| Điều kiện chặn | Trên pull request: mọi finding mức **ERROR không có ở commit gốc** của pull request (`--baseline-commit`) làm job fail. Finding đã có ở commit gốc không chặn. Lưu ý đã kiểm chứng: sửa chính dòng chứa finding cũ thì finding đó được tính là mới; chèn dòng hoặc đổi tên file thì không |
+| Baseline / ngoại lệ | Không có file baseline: baseline là commit gốc của từng pull request. Nợ cũ được kiểm kê trong `docs/sast-backlog.md` (cập nhật từ báo cáo hằng tuần). Ngoại lệ lẻ: `// nosemgrep: <rule-id> -- <ID>: <lý do>; xem lại trước <ngày>`, hạn tối đa 6 tháng, qua pull request do người phụ trách bảo mật duyệt. Cấm `nosemgrep` không kèm rule ID |
+| Bằng chứng | Artifact `semgrep-sarif`: `semgrep-gate.sarif` (chỉ trên pull request) và `semgrep-all.sarif` (toàn bộ, mọi mức), giữ 30 ngày; `docs/sast-backlog.md` |
+| Triage và thời hạn xử lý | Finding ERROR mới: triage trong 1 ngày làm việc, sửa trước khi merge. Nợ cũ: theo hạn trong `docs/sast-backlog.md`; ưu tiên theo khả năng khai thác, không theo thứ tự công cụ báo |
+| Căn cứ framework | Như `rexcorp-app` (NIST SSDF 1.1 PW.7.1, PW.7.2; ánh xạ PO.3, PO.4; bản đồ pipeline NCCoE, SAST System). Cách triển khai dần từng bước cho hệ thống cũ là lựa chọn của khóa học, không phải câu chữ của framework |
 
 ### Dependency, SCA và SBOM (module 05)
 
