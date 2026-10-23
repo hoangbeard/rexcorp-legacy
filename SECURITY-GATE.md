@@ -56,9 +56,21 @@ Cách dùng mẫu:
 |---|---|---|---|---|---|
 | 2026-10-23 | Alert 2: "MongoDB Atlas Database URI with credentials", `config/env/all.js:6`, commit `5ab0088` (2020) | (1) Commit của dự án gốc NodeGoat, có trong repo công khai `OWASP/NodeGoat`. (2) Chuỗi chỉ dùng khi `NODE_ENV === 'test'`: cluster test của dự án gốc. (3) Bỏ khỏi file từ commit `1957f9a` (2021); HEAD không còn. (4) Cấu hình của RexCorp đọc `MONGODB_URI` từ biến môi trường. Kết luận: credential của bên thứ ba, RexCorp không sở hữu, không thu hồi được | `wont_fix` (không chọn `used_in_tests`, vì đây không phải fixture giả mà là credential thật của bên thứ ba, chưa rõ còn hiệu lực) | Kỹ sư DevOps phụ trách bảo mật | Alert 2 `resolved`/`wont_fix` với comment trỏ về backlog LEG-006 |
 
-### Yêu cầu bảo mật và threat model (module 03)
+### Yêu cầu bảo mật (module 03)
 
-Chưa áp dụng.
+| Hạng mục | Quy định |
+|---|---|
+| Công cụ và phiên bản | Bảng kiểm requirement OWASP ASVS 5.0.0 trong `SECURITY-REQUIREMENTS.md`; ratchet bằng `scripts/requirements-ratchet.sh` (bash, grep), workflow `.github/workflows/requirements-ratchet.yml`. Chưa có threat model đầy đủ (module 11) |
+| Chạy ở đâu | CI: job `requirements-ratchet` trên mọi `pull_request` và push lên `main` |
+| Điều kiện chặn | Số dòng khớp của bất kỳ mẫu lỗi nào trong `.security/requirements-baseline.txt` **tăng** so với baseline làm job fail. Số đếm bằng hoặc giảm không chặn |
+| Baseline / ngoại lệ | `.security/requirements-baseline.txt` (tạo 2026-10-06). Chỉ được sửa để **hạ** số đếm, qua pull request do người phụ trách bảo mật duyệt. Tăng số đếm cần ADR, lý do, người chịu trách nhiệm, hạn xem lại |
+| Bằng chứng | Log job `requirements-ratchet`; `SECURITY-REQUIREMENTS.md` (trạng thái từng requirement) |
+| Triage và thời hạn xử lý | Mỗi dòng trong bảng kiểm có mục `LEG-007` đến `LEG-011` trong `docs/security-backlog.md`, hạn 30 đến 60 ngày. Ratchet là biện pháp tạm; module 04 thay bằng SAST |
+| Căn cứ framework | Ánh xạ của khóa học vào NIST SSDF 1.1: PO.1.2 (tài liệu hóa requirement, trang 5), PW.1.2 (theo dõi requirement, rủi ro, quyết định thiết kế, trang 11), PO.4.2 Ex. 3 (tự động hóa quyết định theo tiêu chí, trang 8). Requirement: OWASP ASVS 5.0.0 |
+
+<!-- Thêm vào bảng "Lịch sử thay đổi":
+| 2026-10-06 | Kỹ sư DevOps phụ trách bảo mật | Thêm mục "Yêu cầu bảo mật" và ratchet (Lab 03) |
+-->
 
 ### SAST: phân tích tĩnh mã nguồn (module 04)
 
