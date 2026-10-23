@@ -31,3 +31,4 @@ test/e2e/videos/
 .dccache
 /osv-report.json
 /osv-scanner.sarif
+/sbom/
