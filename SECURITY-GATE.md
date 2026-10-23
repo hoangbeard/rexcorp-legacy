@@ -86,7 +86,27 @@ Cách dùng mẫu:
 
 ### Dependency, SCA và SBOM (module 05)
 
-Chưa áp dụng.
+#### SCA: lỗ hổng trong dependency (triển khai dần)
+
+| Hạng mục | Quy định |
+|---|---|
+| Công cụ và phiên bản | OSV-Scanner v2.6.0 (image pin digest như `rexcorp-app`), workflow `dependency-scan.yml`; Dependabot version updates giai đoạn 1 (chỉ bản patch) |
+| Điều kiện chặn | Mọi lỗ hổng không nằm trong `osv-scanner.toml` làm job fail: tức là chỉ chặn lỗ hổng MỚI |
+| Baseline | `osv-scanner.toml` tạo ngày 2026-10-06 bằng `labs/scripts/lab-05a-osv-baseline.sh`: 190 mục, mỗi mục có `ignoreUntil` theo mức độ (Critical 30 ngày, High 60 ngày, còn lại 90 ngày). Baseline là "đã biết, đang xử lý", không phải "đã chấp nhận": xem `docs/security-backlog-dependencies.md` (DEP-001 đến DEP-005) |
+| Tạo lại baseline | Chỉ để thu nhỏ (xóa mục đã xử lý hoặc hết lý do), qua pull request, người phụ trách bảo mật duyệt. Không bao giờ chạy script tạo baseline để "làm gate xanh" khi gate đỏ vì lỗ hổng mới |
+| Hết hạn | Mục hết hạn mà chưa xử lý: gate đỏ, người phụ trách quyết định xử lý hoặc gia hạn có lý do mới (tối đa một lần, 30 ngày) |
+| Căn cứ framework | NIST SSDF 1.1: PW.4.4, RV.1.1, PO.4.2; OpenSSF S2C2F SCA-1, UPD-1 (L1) rồi UPD-2 (L2) khi baseline đã nhỏ |
+
+
+#### SBOM (triển khai dần)
+
+| Hạng mục | Quy định |
+|---|---|
+| Công cụ và phiên bản | Syft v1.55.0 (image pin digest), workflow `sbom.yml`; có `SYFT_JAVASCRIPT_INCLUDE_DEV_DEPENDENCIES=true` để SBOM gồm cả `devDependencies` |
+| Giai đoạn hiện tại | Chỉ tạo và lưu SBOM (artifact `sbom-rexcorp-legacy`, 90 ngày), chạy `scvs-l1-check.sh` ở chế độ báo cáo (`continue-on-error`). Chưa chặn |
+| Khoảng trống đã biết | SCVS 2.14 (giấy phép): 386 trên 1224 component npm có thông tin giấy phép (2026-10-06). Lockfile cũ không ghi `license` cho phần lớn package. Việc cần làm: ghi vào `docs/security-backlog-dependencies.md` (DEP-006) |
+| Khi nào chặn | Khi tỷ lệ component có giấy phép đạt mức đã thống nhất với bên pháp chế, hoặc khi khách hàng yêu cầu bằng hợp đồng |
+| Căn cứ framework | NIST SSDF 1.1: PS.3.2; OWASP SCVS V2 L1 (2.9, 2.14) |
 
 ### Container image và cấu hình (module 06)
 
