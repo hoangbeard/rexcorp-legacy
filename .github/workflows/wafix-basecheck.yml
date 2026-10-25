@@ -1,0 +1,49 @@
+name: wafix-basecheck
+
+# Thí nghiệm của khóa học: so github.event.pull_request.base.sha với HEAD^1 của merge commit
+# và xem Semgrep --baseline-commit cho kết quả nào với từng giá trị. Không dùng cho sản xuất.
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      SEMGREP_IMAGE: semgrep/semgrep:1.182.0@sha256:4a34048c04fef049f71665047f074cffb00cc3d89482f965a5cd151d589237af
+      BASE_SHA: ${{ github.event.pull_request.base.sha }}
+      HEAD_EVENT_SHA: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - name: Checkout (toàn bộ lịch sử)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: In các SHA
+        run: |
+          echo "GITHUB_SHA=$GITHUB_SHA"
+          echo "HEAD=$(git rev-parse HEAD)"
+          echo "HEAD^1=$(git rev-parse HEAD^1)"
+          echo "HEAD^2=$(git rev-parse HEAD^2)"
+          echo "event base.sha=$BASE_SHA"
+          echo "event head.sha=$HEAD_EVENT_SHA"
+          if [ "$(git rev-parse HEAD^1)" = "$BASE_SHA" ]; then echo "KET QUA: HEAD^1 == base.sha"; else echo "KET QUA: HEAD^1 != base.sha"; fi
+          git log --oneline --graph -6
+
+      - name: Semgrep với --baseline-commit HEAD^1 và base.sha
+        run: |
+          run_semgrep() {
+            docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp \
+              -e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=safe.directory -e GIT_CONFIG_VALUE_0=/src \
+              -v "$GITHUB_WORKSPACE":/src -w /src "$SEMGREP_IMAGE" \
+              semgrep scan --config p/default --metrics off --disable-version-check --no-rewrite-rule-ids \
+              --severity ERROR --baseline-commit "$1" 2>&1 | grep -E "Findings:|Ran " || true
+          }
+          echo "--- baseline = HEAD^1"
+          run_semgrep "$(git rev-parse HEAD^1)"
+          echo "--- baseline = event base.sha"
+          run_semgrep "$BASE_SHA"
