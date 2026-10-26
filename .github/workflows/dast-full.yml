@@ -37,7 +37,7 @@ jobs:
 
       - name: Quét ZAP đầy đủ (hết giờ thì dừng và exit 124)
         env:
-          DAST_FULL_MAX_MIN: ${{ inputs.max_minutes || '6' }}
+          DAST_FULL_MAX_MIN: ${{ inputs.max_minutes || '50' }}
         run: scripts/dast-full-scan.sh
 
       - name: Lưu báo cáo ZAP làm artifact
