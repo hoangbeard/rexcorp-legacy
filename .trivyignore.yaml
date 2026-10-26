@@ -65,23 +65,23 @@ vulnerabilities:
     statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
     expired_at: 2026-12-25
   - id: CVE-2022-37434
-    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    statement: "EXC-0001 (SEC-L01): base image node:12-alpine, xem docs/security-exceptions.md"
     expired_at: 2026-11-25
   - id: CVE-2022-38900
     statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
     expired_at: 2026-12-25
   - id: CVE-2022-4450
-    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
-    expired_at: 2026-12-25
+    statement: "EXC-0001 (SEC-L01): base image node:12-alpine, xem docs/security-exceptions.md"
+    expired_at: 2026-11-25
   - id: CVE-2023-0215
-    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
-    expired_at: 2026-12-25
+    statement: "EXC-0001 (SEC-L01): base image node:12-alpine, xem docs/security-exceptions.md"
+    expired_at: 2026-11-25
   - id: CVE-2023-0286
-    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
-    expired_at: 2026-12-25
+    statement: "EXC-0001 (SEC-L01): base image node:12-alpine, xem docs/security-exceptions.md"
+    expired_at: 2026-11-25
   - id: CVE-2023-0464
-    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
-    expired_at: 2026-12-25
+    statement: "EXC-0001 (SEC-L01): base image node:12-alpine, xem docs/security-exceptions.md"
+    expired_at: 2026-11-25
   - id: CVE-2023-25345
     statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
     expired_at: 2026-12-25

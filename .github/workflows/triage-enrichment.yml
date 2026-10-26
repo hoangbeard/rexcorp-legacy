@@ -1,0 +1,84 @@
+name: Triage enrichment
+
+# Mỗi ngày: lấy danh sách CVE trong package-lock.json, ghép với CISA KEV và EPSS (scripts/kev-epss.sh), lưu bảng làm artifact.
+# Chạy hằng NGÀY (không hằng tuần) vì hạn P1 chỉ có 3 ngày: chạy hằng tuần thì một CVE vào KEV ngay sau lần chạy phải chờ tới
+# 7 ngày mới được thấy (docs/frameworks/remediation-sla.md). GitHub không có trigger "khi KEV có mục mới", nên lịch hằng ngày là cách thay thế.
+# KHÔNG chạy trên pull request: KEV và EPSS đổi hằng ngày, nên điều kiện chặn của pull request không dùng chúng (ADR-0008).
+# Lần chạy này fail khi có CVE trong KEV mà CHƯA nằm trong bản triage nào ở docs/triage/: đó là tín hiệu "xếp hạng ngay".
+# CVE đã được triage (có tên trong docs/triage/*.md) không làm job đỏ lại mỗi ngày.
+on:
+  schedule:
+    - cron: "41 4 * * *" # hằng ngày, 04:41 UTC (tránh đầu giờ, lúc GitHub tải cao)
+  workflow_dispatch:
+  push:
+    branches: ['wBfix2/**'] # CHỈ cho lần thử trên nhánh sandbox, không có trong bản của khóa học
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  kev-epss:
+    name: KEV and EPSS enrichment
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      OSV_SCANNER_IMAGE: ghcr.io/google/osv-scanner:v2.6.0@sha256:afd838850ac1a0fcc15ff4a041dc9ba11123c3f0d2666217a5f0fcf9222b55fa
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: OSV-Scanner xuất JSON (không chặn, chỉ lấy dữ liệu)
+        # --config với file rỗng: bỏ qua osv-scanner.toml. Baseline của repo cũ ẩn mọi lỗ hổng đã biết khỏi gate,
+        # nhưng triage cần thấy chính những lỗ hổng đó để xếp bậc.
+        run: |
+          mkdir -p "$RUNNER_TEMP/triage"
+          : > "$RUNNER_TEMP/triage/empty.toml"
+          code=0
+          docker run --rm --user "$(id -u):$(id -g)" \
+            -v "$GITHUB_WORKSPACE":/src:ro -v "$RUNNER_TEMP/triage":/out -w /src "$OSV_SCANNER_IMAGE" \
+            scan source -r /src --config /out/empty.toml --verbosity error --format json --output-file /out/osv.json || code=$?
+          [ "$code" -le 1 ] || exit "$code"
+
+      - name: Ghép KEV và EPSS
+        run: |
+          jq -r '[.results[]?.packages[]?.vulnerabilities[]? | (.aliases // [])[] | select(startswith("CVE-"))] | unique | .[]' \
+            "$RUNNER_TEMP/triage/osv.json" > "$RUNNER_TEMP/triage/cves.txt"
+          if [ ! -s "$RUNNER_TEMP/triage/cves.txt" ]; then
+            echo "Không có CVE nào trong lockfile: không cần ghép." | tee "$RUNNER_TEMP/triage/kev-epss.tsv"
+            exit 0
+          fi
+          bash scripts/kev-epss.sh --epss csv "$RUNNER_TEMP/triage/cves.txt" > "$RUNNER_TEMP/triage/kev-epss.tsv"
+          {
+            echo "### KEV và EPSS (top 15)"
+            echo '```text'
+            head -n 20 "$RUNNER_TEMP/triage/kev-epss.tsv"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Lưu bảng làm artifact
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: kev-epss
+          path: ${{ runner.temp }}/triage/kev-epss.tsv
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Fail khi có CVE trong KEV chưa được triage
+        run: |
+          awk -F'\t' '!/^#/ && $2 == "yes" { print $1 }' "$RUNNER_TEMP/triage/kev-epss.tsv" | sort -u > "$RUNNER_TEMP/triage/kev-now.txt"
+          # CVE đã nhắc trong bản triage thì coi là đã có hạng và người phụ trách.
+          { grep -rhoE 'CVE-[0-9]{4}-[0-9]{4,}' docs/triage 2>/dev/null || true; } | sort -u > "$RUNNER_TEMP/triage/triaged.txt"
+          comm -23 "$RUNNER_TEMP/triage/kev-now.txt" "$RUNNER_TEMP/triage/triaged.txt" > "$RUNNER_TEMP/triage/kev-new.txt"
+          if [ -s "$RUNNER_TEMP/triage/kev-new.txt" ]; then
+            echo "::error::Có CVE nằm trong CISA KEV mà chưa có trong docs/triage/. Xếp hạng theo SECURITY-GATE.md và ghi vào bản triage."
+            cat "$RUNNER_TEMP/triage/kev-new.txt"
+            exit 1
+          fi
+          echo "KEV: $(wc -l < "$RUNNER_TEMP/triage/kev-now.txt" | tr -d ' ') CVE, tất cả đã được triage (hoặc không có)."

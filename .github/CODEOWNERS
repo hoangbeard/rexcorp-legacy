@@ -1,0 +1,16 @@
+# Người duyệt policy, baseline và cấu hình gate. Thay @ten-github-cua-ban bằng tài khoản (hoặc @org/team) có quyền ghi vào repo.
+# CODEOWNERS chỉ có hiệu lực khi ruleset (hoặc branch protection) bật "Require review from Code Owners".
+
+/SECURITY-GATE.md            @ten-github-cua-ban
+/SECURITY-REQUIREMENTS.md    @ten-github-cua-ban
+/docs/security-exceptions.md @ten-github-cua-ban
+/.security/                  @ten-github-cua-ban
+/.github/CODEOWNERS          @ten-github-cua-ban
+/.github/workflows/          @ten-github-cua-ban
+/.github/dependabot.yml      @ten-github-cua-ban
+/.semgrep/                   @ten-github-cua-ban
+/.zap/                       @ten-github-cua-ban
+/.hadolint.yaml              @ten-github-cua-ban
+/.trivyignore.yaml           @ten-github-cua-ban
+/osv-scanner.toml            @ten-github-cua-ban
+/scripts/                    @ten-github-cua-ban
