@@ -22,10 +22,10 @@
 10055	WARN	CSP thiếu directive không có fallback: tinh chỉnh CSP, chưa chặn
 
 # --- IGNORE: ghi lý do và hạn xem lại ---
-10049	IGNORE	Informational: API danh mục công khai, cache được là chủ đích. Xem lại 2027-04-06
-10109	IGNORE	Informational: chỉ nhận diện ứng dụng web hiện đại, không phải lỗ hổng. Xem lại 2027-04-06
-10111	IGNORE	Informational: ZAP nhận diện request đăng nhập. Xem lại 2027-04-06
-10112	IGNORE	Informational: ZAP nhận diện cơ chế session. Xem lại 2027-04-06
+10049	IGNORE	Informational: (EXC-0003) API danh mục công khai, cache được là chủ đích. Xem lại 2027-04-06
+10109	IGNORE	Informational: (EXC-0003) chỉ nhận diện ứng dụng web hiện đại, không phải lỗ hổng. Xem lại 2027-04-06
+10111	IGNORE	Informational: (EXC-0003) ZAP nhận diện request đăng nhập. Xem lại 2027-04-06
+10112	IGNORE	Informational: (EXC-0003) ZAP nhận diện cơ chế session. Xem lại 2027-04-06
 
 # --- Phạm vi: không quét những URL này ---
 # Khi quét có đăng nhập, đừng để spider bấm vào liên kết đăng xuất: nó hủy session đang dùng.

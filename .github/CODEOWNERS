@@ -1,0 +1,16 @@
+# Người duyệt policy, baseline và cấu hình gate. Thay @hoangbeard bằng tài khoản (hoặc @org/team) có quyền ghi vào repo.
+# CODEOWNERS chỉ có hiệu lực khi ruleset (hoặc branch protection) bật "Require review from Code Owners".
+
+/SECURITY-GATE.md            @hoangbeard
+/SECURITY-REQUIREMENTS.md    @hoangbeard
+/docs/security-exceptions.md @hoangbeard
+/.security/                  @hoangbeard
+/.github/CODEOWNERS          @hoangbeard
+/.github/workflows/          @hoangbeard
+/.github/dependabot.yml      @hoangbeard
+/.semgrep/                   @hoangbeard
+/.zap/                       @hoangbeard
+/.hadolint.yaml              @hoangbeard
+/.trivyignore.yaml           @hoangbeard
+/osv-scanner.toml            @hoangbeard
+/scripts/                    @hoangbeard

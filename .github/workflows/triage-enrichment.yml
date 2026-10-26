@@ -1,0 +1,74 @@
+name: Triage enrichment
+
+# Mỗi tuần: lấy danh sách CVE trong package-lock.json, ghép với CISA KEV và EPSS (scripts/kev-epss.sh), lưu bảng làm artifact.
+# KHÔNG chạy trên pull request: KEV và EPSS đổi hằng ngày, nên điều kiện chặn của pull request không dùng chúng (ADR-0008).
+# Lần chạy này fail khi có CVE trong KEV: đó là tín hiệu "xem lại bậc ưu tiên ngay" (P1 hoặc P2 theo bảng triage).
+on:
+  schedule:
+    - cron: "41 4 * * 1" # thứ Hai hằng tuần, 04:41 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  kev-epss:
+    name: KEV and EPSS enrichment
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      OSV_SCANNER_IMAGE: ghcr.io/google/osv-scanner:v2.6.0@sha256:afd838850ac1a0fcc15ff4a041dc9ba11123c3f0d2666217a5f0fcf9222b55fa
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: OSV-Scanner xuất JSON (không chặn, chỉ lấy dữ liệu)
+        # --config với file rỗng: bỏ qua osv-scanner.toml. Baseline của repo cũ ẩn mọi lỗ hổng đã biết khỏi gate,
+        # nhưng triage cần thấy chính những lỗ hổng đó để xếp bậc.
+        run: |
+          mkdir -p "$RUNNER_TEMP/triage"
+          : > "$RUNNER_TEMP/triage/empty.toml"
+          code=0
+          docker run --rm --user "$(id -u):$(id -g)" \
+            -v "$GITHUB_WORKSPACE":/src:ro -v "$RUNNER_TEMP/triage":/out -w /src "$OSV_SCANNER_IMAGE" \
+            scan source -r /src --config /out/empty.toml --verbosity error --format json --output-file /out/osv.json || code=$?
+          [ "$code" -le 1 ] || exit "$code"
+
+      - name: Ghép KEV và EPSS
+        run: |
+          jq -r '[.results[]?.packages[]?.vulnerabilities[]? | (.aliases // [])[] | select(startswith("CVE-"))] | unique | .[]' \
+            "$RUNNER_TEMP/triage/osv.json" > "$RUNNER_TEMP/triage/cves.txt"
+          if [ ! -s "$RUNNER_TEMP/triage/cves.txt" ]; then
+            echo "Không có CVE nào trong lockfile: không cần ghép." | tee "$RUNNER_TEMP/triage/kev-epss.tsv"
+            exit 0
+          fi
+          bash scripts/kev-epss.sh --epss csv "$RUNNER_TEMP/triage/cves.txt" > "$RUNNER_TEMP/triage/kev-epss.tsv"
+          {
+            echo "### KEV và EPSS (top 15)"
+            echo '```text'
+            head -n 20 "$RUNNER_TEMP/triage/kev-epss.tsv"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Lưu bảng làm artifact
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: kev-epss
+          path: ${{ runner.temp }}/triage/kev-epss.tsv
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Fail khi có CVE trong KEV
+        run: |
+          if awk -F'\t' '!/^#/ && $2 == "yes" { found = 1 } END { exit !found }' "$RUNNER_TEMP/triage/kev-epss.tsv"; then
+            echo "::error::Có CVE nằm trong CISA KEV. Xem artifact kev-epss và xếp lại bậc ưu tiên theo SECURITY-GATE.md."
+            awk -F'\t' '!/^#/ && $2 == "yes"' "$RUNNER_TEMP/triage/kev-epss.tsv"
+            exit 1
+          fi
