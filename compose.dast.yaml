@@ -20,5 +20,5 @@ services:
     networks: [dast]
 networks:
   dast:
-    name: rxdast-net
+    name: ${DAST_NET:-rxdast-net}
     internal: true

@@ -1,0 +1,77 @@
+name: DAST full (legacy)
+
+# Quét ĐẦY ĐỦ, có quét chủ động (zap-full-scan.py), rexcorp-legacy trên bản sao dựng ngay trong job. Chạy THEO LỊCH và khi bấm tay,
+# KHÔNG phải gate của pull request (bài 1, mục 4 và 6): quét chủ động là tấn công thật, lâu, và kết quả không ổn định giữa các lần.
+# Ứng dụng (Node 12, cố ý có lỗ hổng) và MongoDB chạy trong mạng Docker `internal: true` do compose.dast.yaml dựng.
+# Thời gian: thông số thật nằm ở Lab 07, Bước 12 (đo trên máy và trên runner). Có hai lớp giới hạn: scripts/dast-full-scan.sh tự dừng ZAP
+# sau DAST_FULL_MAX_MIN phút (cờ -T của ZAP không giới hạn quét chủ động), và timeout-minutes của job là lưới an toàn cuối.
+on:
+  push:
+    branches: ['wBfix1/dast-full'] # CHỈ để thử trên nhánh này; không có trong bản đáp án
+  schedule:
+    - cron: '23 18 * * 0' # Chủ nhật 18:23 UTC. Lịch chỉ chạy trên nhánh mặc định.
+  workflow_dispatch:
+    inputs:
+      max_minutes:
+        description: 'Số phút tối đa cho ZAP (mặc định 40)'
+        required: false
+        default: '40'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  full-scan:
+    name: ZAP full scan (legacy)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Quét ZAP đầy đủ (hết giờ thì dừng và exit 124)
+        env:
+          DAST_FULL_MAX_MIN: ${{ inputs.max_minutes || '6' }}
+        run: scripts/dast-full-scan.sh
+
+      - name: Lưu báo cáo ZAP làm artifact
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: zap-full-report-legacy
+          path: zap-out/
+          if-no-files-found: ignore
+          retention-days: 30
+
+  alert:
+    # Cảnh báo khi lần quét theo lịch thất bại (hết giờ, lỗi công cụ, hoặc có rule FAIL). Lịch chạy trong im lặng là cách gate chết mà không ai biết.
+    name: Cảnh báo khi quét thất bại
+    needs: full-scan
+    if: ${{ failure() }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions: {}
+    env:
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    steps:
+      - name: Ghi cảnh báo vào trang tóm tắt, và gửi webhook nếu có cấu hình
+        run: |
+          {
+            echo "### DAST full scan THẤT BẠI"
+            echo
+            echo "Lần quét theo lịch của \`${GITHUB_REPOSITORY}\` thất bại. Xem log: ${RUN_URL}"
+            echo "Exit 124 nghĩa là hết giờ; 1 nghĩa là có rule FAIL; 3 là lỗi công cụ."
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ -n "${SLACK_WEBHOOK_URL:-}" ]; then
+            curl -fsS -X POST -H 'Content-Type: application/json' \
+              --data "{\"text\":\"DAST full scan thất bại: ${GITHUB_REPOSITORY} ${RUN_URL}\"}" "$SLACK_WEBHOOK_URL"
+          else
+            echo "Chưa cấu hình secret SLACK_WEBHOOK_URL: chỉ ghi vào trang tóm tắt (GitHub vẫn gửi email báo workflow thất bại cho người sửa lịch gần nhất)."
+          fi
