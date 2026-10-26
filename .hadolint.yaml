@@ -1,0 +1,3 @@
+# Cấu hình hadolint cho rexcorp-legacy (Lab 06). Gate chỉ chặn từ mức warning trở lên.
+# Dockerfile hiện tại chỉ có finding mức info (DL3066: USER node dạng tên); chúng vẫn hiện trong log.
+failure-threshold: warning

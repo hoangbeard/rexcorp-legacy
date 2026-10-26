@@ -1,0 +1,126 @@
+name: Container and configuration
+
+# Workflow mới, chạy song song với các workflow cũ của repo (chưa sửa chúng ở module này).
+# Gate chỉ chặn finding MỚI: phát hiện đã biết nằm trong .trivyignore.yaml (baseline, mỗi mục có expired_at).
+# Lưu ý: kết quả quét image đổi theo ngày vì cơ sở dữ liệu lỗ hổng cập nhật; lần chạy hằng tuần cho biết sớm.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "41 3 * * 1" # thứ Hai hằng tuần, 03:41 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  config-scan:
+    name: Dockerfile and compose (hadolint, Trivy config, KICS)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      HADOLINT_IMAGE: hadolint/hadolint:v2.15.1@sha256:32dac94127fd60b7b7e3fbfc65e1383b9b5e25c9bfd7b8536de7a539fe68a12d
+      TRIVY_IMAGE: ghcr.io/aquasecurity/trivy:0.76.1@sha256:790fd66d1697395d8693d1acaa1ea702406a20f109b6fc7bac8db623eca6c06c
+      KICS_IMAGE: checkmarx/kics:v2.1.20@sha256:3e5a268eb8adda2e5a483c9359ddfc4cd520ab856a7076dc0b1d8784a37e2602
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Chuẩn bị thư mục báo cáo và cache (ngoài thư mục được quét)
+        run: mkdir -p "$RUNNER_TEMP/container-out" "$RUNNER_TEMP/trivy-cache"
+
+      - name: hadolint, lint mọi Dockerfile (gate từ mức warning, xem .hadolint.yaml)
+        run: |
+          status=0
+          while IFS= read -r dockerfile; do
+            echo "== hadolint $dockerfile"
+            docker run --rm -v "$GITHUB_WORKSPACE":/src:ro -w /src "$HADOLINT_IMAGE" hadolint "$dockerfile" || status=1
+          done < <(git ls-files '*Dockerfile*')
+          exit "$status"
+
+      - name: Trivy config, quét Dockerfile (HIGH và CRITICAL chặn)
+        if: ${{ !cancelled() }} # chạy cả khi bước trước fail, để một lần chạy cho thấy mọi gate đỏ
+        run: |
+          docker run --rm --user "$(id -u):$(id -g)" -e TRIVY_CACHE_DIR=/cache \
+            -v "$RUNNER_TEMP/trivy-cache":/cache -v "$GITHUB_WORKSPACE":/src:ro -w /src "$TRIVY_IMAGE" \
+            config --skip-version-check --severity HIGH,CRITICAL --exit-code 1 \
+            --ignorefile /src/.trivyignore.yaml /src
+
+      - name: KICS, quét Docker Compose (HIGH và CRITICAL chặn; MEDIUM và LOW vào backlog)
+        if: ${{ !cancelled() }} # chạy cả khi bước trước fail, để một lần chạy cho thấy mọi gate đỏ
+        run: |
+          docker run --rm --network none --user "$(id -u):$(id -g)" \
+            -v "$GITHUB_WORKSPACE":/src:ro -v "$RUNNER_TEMP/container-out":/out "$KICS_IMAGE" \
+            scan -p /src -o /out -t DockerCompose --exclude-paths '/src/.git' \
+            --report-formats json,sarif --output-name kics-compose \
+            --no-progress --ci --disable-full-descriptions --fail-on critical,high
+
+      - name: Báo cáo SARIF của hadolint và Trivy config (không chặn)
+        if: ${{ !cancelled() }}
+        run: |
+          files=()
+          while IFS= read -r dockerfile; do files+=("$dockerfile"); done < <(git ls-files '*Dockerfile*')
+          docker run --rm -v "$GITHUB_WORKSPACE":/src:ro -w /src "$HADOLINT_IMAGE" \
+            hadolint --no-fail --format sarif "${files[@]}" > "$RUNNER_TEMP/container-out/hadolint.sarif"
+          docker run --rm --user "$(id -u):$(id -g)" -e TRIVY_CACHE_DIR=/cache \
+            -v "$RUNNER_TEMP/trivy-cache":/cache -v "$GITHUB_WORKSPACE":/src:ro -v "$RUNNER_TEMP/container-out":/out -w /src "$TRIVY_IMAGE" \
+            config --skip-version-check --quiet --format sarif --output /out/trivy-config.sarif /src
+
+      - name: Lưu báo cáo làm artifact
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: config-scan-reports
+          path: ${{ runner.temp }}/container-out/*
+          if-no-files-found: error
+          retention-days: 30
+
+  image-scan:
+    name: Image scan (Trivy, baseline)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      TRIVY_IMAGE: ghcr.io/aquasecurity/trivy:0.76.1@sha256:790fd66d1697395d8693d1acaa1ea702406a20f109b6fc7bac8db623eca6c06c
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Dựng image và xuất ra file tar
+        run: |
+          mkdir -p "$RUNNER_TEMP/container-out" "$RUNNER_TEMP/trivy-cache"
+          docker build --tag rexcorp-legacy:scan .
+          docker save rexcorp-legacy:scan --output "$RUNNER_TEMP/rexcorp-legacy.tar"
+
+      - name: Trivy quét image, bỏ qua finding trong baseline (gate)
+        # Base image Alpine 3.15 đã hết hỗ trợ: Trivy cảnh báo dữ liệu có thể thiếu, nên "xanh" ở đây chưa có nghĩa là an toàn.
+        run: |
+          docker run --rm --user "$(id -u):$(id -g)" -e TRIVY_CACHE_DIR=/cache \
+            -v "$RUNNER_TEMP/trivy-cache":/cache -v "$RUNNER_TEMP":/work:ro -v "$GITHUB_WORKSPACE":/src:ro "$TRIVY_IMAGE" \
+            image --input /work/rexcorp-legacy.tar --skip-version-check --table-mode detailed \
+            --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 --ignorefile /src/.trivyignore.yaml
+
+      - name: Báo cáo đầy đủ mọi mức (không chặn)
+        if: ${{ !cancelled() }}
+        run: |
+          docker run --rm --user "$(id -u):$(id -g)" -e TRIVY_CACHE_DIR=/cache \
+            -v "$RUNNER_TEMP/trivy-cache":/cache -v "$RUNNER_TEMP":/work -v "$GITHUB_WORKSPACE":/src:ro "$TRIVY_IMAGE" \
+            image --input /work/rexcorp-legacy.tar --skip-version-check --quiet \
+            --format json --output /work/container-out/trivy-image-all.json
+
+      - name: Lưu báo cáo làm artifact
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: image-scan-reports
+          path: ${{ runner.temp }}/container-out/*
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,187 @@
+# Baseline của Trivy, tạo ngày 2026-10-26 bằng labs/scripts/lab-06-trivy-baseline.sh.
+# Mỗi mục là một phát hiện ĐÃ BIẾT trong image cũ. Đây là "đã biết, đang xử lý", không phải "đã chấp nhận".
+# Hạn theo mức độ: CRITICAL và secret 30 ngày, HIGH 60 ngày. Hết hạn thì gate lại báo mục đó.
+# Quy định: SECURITY-GATE.md, mục "Container image và cấu hình". Đổi file này phải qua pull request.
+
+vulnerabilities:
+  - id: CVE-2017-16114
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2017-20165
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2019-10746
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-11-25
+  - id: CVE-2019-10747
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-11-25
+  - id: CVE-2019-20149
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2020-7610
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-11-25
+  - id: CVE-2020-7774
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2020-7788
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2021-23358
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-11-25
+  - id: CVE-2021-23440
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2021-3807
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2021-3820
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2021-44906
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-11-25
+  - id: CVE-2022-21680
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2022-21681
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2022-21803
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2022-24999
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2022-25881
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2022-25883
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2022-3517
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2022-37434
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-11-25
+  - id: CVE-2022-38900
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2022-4450
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2023-0215
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2023-0286
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2023-0464
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2023-25345
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2024-21538
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2024-29415
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2024-4068
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2024-45296
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2024-45590
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2024-52798
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2025-7783
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-11-25
+  - id: CVE-2026-102276
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-102278
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-111181
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-12143
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-13149
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-14257
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-23745
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-23950
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-24842
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-26960
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-26996
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-27601
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-27903
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-27904
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-29786
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-31802
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-4867
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-59873
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-11-25
+  - id: CVE-2026-59874
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-69152
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-73566
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: CVE-2026-90711
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-11-25
+  - id: CVE-2026-93748
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+  - id: GHSA-mh5c-679w-hh4r
+    statement: "Baseline brownfield 2026-10-26: đã biết, xử lý theo docs/security-backlog-containers.md"
+    expired_at: 2026-12-25
+
+secrets:
+  - id: private-key
+    paths:
+      - "/home/node/app/artifacts/cert/server.key"
+    statement: "Baseline brownfield 2026-10-26: khóa mẫu nằm trong image, xem docs/security-backlog-containers.md"
+    expired_at: 2026-11-25
