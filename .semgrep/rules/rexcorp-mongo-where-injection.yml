@@ -1,0 +1,17 @@
+rules:
+  - id: rexcorp-mongo-where-injection
+    languages: [javascript]
+    severity: ERROR
+    message: >-
+      Điều kiện $where của MongoDB được dựng từ chuỗi có chèn biến. $where chạy JavaScript phía máy chủ MongoDB,
+      nên giá trị do người dùng kiểm soát có thể chèn mã (NoSQL injection). Dùng toán tử so sánh của truy vấn
+      ({ stocks: { $gt: n } }) với giá trị đã ép kiểu và kiểm khoảng.
+    metadata:
+      category: security
+      cwe: "CWE-943: Improper Neutralization of Special Elements in Data Query Logic"
+      license: MIT
+    patterns:
+      - pattern: |
+          { $where: $EXPR, ... }
+      - pattern-not: |
+          { $where: "..." , ... }

@@ -1,0 +1,25 @@
+# Dependabot version updates cho rexcorp-legacy, bật từng bước để không ngập pull request.
+# Giai đoạn 1 (file này): chỉ bản patch, tối đa 3 pull request mở, bỏ qua bản major.
+# Giai đoạn 2 (khi baseline đã thu nhỏ): bỏ phần "ignore", cho phép minor, rồi từng major có kế hoạch riêng.
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+      timezone: "Asia/Ho_Chi_Minh"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 3
+    groups:
+      npm-patch:
+        update-types:
+          - "patch"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+    commit-message:
+      prefix: "deps"

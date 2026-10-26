@@ -1,0 +1,975 @@
+# Baseline của OSV-Scanner, tạo ngày 2026-10-25 bằng labs/scripts/lab-05a-osv-baseline.sh.
+# Mỗi mục là một lỗ hổng ĐÃ BIẾT trong repo cũ. Đây là "đã biết, đang xử lý", không phải "đã chấp nhận".
+# Hạn theo mức độ: Critical 30 ngày, High 60 ngày, còn lại 90 ngày. Hết hạn thì gate lại báo lỗ hổng đó. Đây là ngoại lệ có thời hạn cho nợ có sẵn, không phải SLA (bảng SLA: docs/frameworks/remediation-sla.md).
+# Quy định: SECURITY-GATE.md, mục "Dependency, SCA và SBOM". Đổi file này phải qua pull request.
+
+[[IgnoredVulns]]
+id = "GHSA-23c5-xmqv-rm74"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-23hp-3jrh-7fpw"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-27r3-jxmh-p828"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-282f-qqgm-c34q"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.6): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-2883-xcg3-v3hh"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-29mw-wpgm-hmr9"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-2cf5-4w76-r9qv"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-2g4f-4pwh-qvx6"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-2m39-62fm-q8r3"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-2pr6-76vf-7546"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.9): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-2qvq-rjwj-gvw9"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 4.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-2rq5-699j-x7p6"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-2w6w-674q-4c4q"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-332q-7ff2-57h2"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-34x7-hfp2-rc4v"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-35jh-r3h4-6jhm"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-37ch-88jc-xwx2"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-3cqr-58rm-57f8"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-3jfq-g458-7qm9"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-3jxr-9vmj-r5cp"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-3mfm-83xf-c92r"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-3ppc-4f35-3m26"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-3v6h-hqm4-2rg6"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-3xgq-45jj-v275"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-4328-8hgf-7wjr"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-43f8-2h32-f4cj"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-442j-39wm-28r2"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 3.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-44pw-h2cw-w3vq"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.4): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-4g88-fppr-53pp"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-4gmj-3p3h-gm8h"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-4hpf-3wq7-5rpr"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-4jqc-8m5r-9rpr"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-4jwp-vfvf-657p"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.4): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-4mjr-xmp4-gh2g"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-4rq4-32rv-6wp6"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-4xc9-xhrj-v574"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-52cp-r559-cp3m"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-52f5-9888-hmc6"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 2.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-5955-9wpr-37jh"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-5p4m-2wfm-xmqj"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-5v2h-r2cx-5xgj"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-62gr-4qp9-h98f"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-64g7-mvw6-v9qj"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-67hx-6x53-jw92"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-6c8f-qphg-qjgp"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-6g33-f262-xjp4"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-6j4f-fj2g-mc7p"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-6rw7-vpxm-498p"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-6xwr-q98w-rvg7"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-72xf-g2v4-qvf3"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-73rr-hh4g-fpgx"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 2.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-765h-qjxv-5f44"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-76c9-3jph-rj3q"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 3.4): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-776f-qx25-q3cc"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-7p7h-4mm5-852v"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-7pqw-9j4j-h8q3"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-7px7-7xjx-hxm8"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-7q85-xj36-vmfc"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-7r86-cg39-jmmj"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-7xfp-9c55-5vqj"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.9): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-8238-w5pm-2374"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-832h-xg76-4gv6"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-83g3-92jg-28cx"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-896r-f27r-55mw"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-8hfj-j24r-96c4"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-8j8c-7jfh-h6hx"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-8qq5-rm4j-mr97"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-8r5x-fm3f-whwj"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-8r6j-v8pm-fqw3"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-8x88-c5mf-7j5w"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-93f3-23rq-pjfp"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 4.4): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-93q8-gq69-wqmw"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-952p-6rrq-rcjv"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-957j-59c2-j692"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-96hv-2xvq-fx4p"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-9cx6-37pm-9jff"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-9ppj-qmqm-q256"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-9r2w-394v-53qc"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-9vvw-cc9w-f27h"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-c2qf-rxjj-qqgw"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-c3m8-x3cg-qm2c"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-c429-5p7v-vgjp"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-c4w7-xm78-47vh"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-c6fg-446q-cg94"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-c6rq-rjc2-86v2"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 2.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-c9f4-xj24-8jqx"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-cf4h-3jhx-xvhq"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-cm22-4g7w-348p"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-f23m-r3pf-42rh"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-f2jv-r9rf-7988"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-f52g-6jhx-586p"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-f5x3-32g6-xq36"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-f886-m6hf-6m8v"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-f8q6-p94x-37v3"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-f9cm-p3w6-xvr3"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-ff7x-qrg7-qggm"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-fhjf-83wg-r2j9"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-fjxv-7rqg-78g4"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.4): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-fvqr-27wr-82fm"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-fwr7-v2mv-hh25"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-g78m-2chm-r7qv"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-g7q5-pjjr-gqvp"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-g9r4-xpmj-mj65"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-gqgv-6jq5-jjj9"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-grv7-fg5c-xmjg"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-gvwx-54wh-qm9j"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-gxpj-cx7g-858c"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 3.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-h67p-54hq-rp68"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-h6ch-v84p-w6p9"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-hj48-42vr-x3v9"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-hmw2-7cc7-3qxx"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-hrpp-h998-j3pp"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-hxm2-r34f-qmc5"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-j383-35pm-c5h4"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-j44m-qm6p-hp7m"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-j5f4-cc29-5x44"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-jcpv-g9rr-qxrc"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-jf85-cpcp-j695"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-jjv7-qpx3-h62q"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-jmr9-qjv8-65gv"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.6): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-jp4x-w63m-7wgm"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-jqcg-44mw-7w3h"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-m5pj-vjjf-4m3h"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-m6cx-g6qm-p2cx"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-m6fv-jmcg-4jfg"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-mf6x-7mm4-x2g7"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-mh29-5h37-fv8m"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-mh5c-679w-hh4r"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-mh99-v99m-4gvg"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-mp7j-qc5w-4988"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-p634-w6r4-rjp2"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.9): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-p6mc-m468-83gw"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.4): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-p8p7-x288-28g6"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-p8wg-vrv2-v86f"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-p9pc-299p-vxgp"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-p9wx-2529-fp83"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.9): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-pfrx-2q88-qq97"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-ph34-pc88-72gc"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-ph9p-34f9-6g65"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-pp7h-53gx-mx7r"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-pw54-mh39-w3hc"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-pxg6-pf52-xh8x"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-q2c6-c6pm-g3gh"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-q2hr-2g5m-vwhr"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-q42p-pg8m-cqh6"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-qffp-2rhf-9h96"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-qh2h-chj9-jffq"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-qhr7-859c-m2p7"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-qhv9-728r-6jqg"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-qpx9-hpmf-5gmw"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-qq89-hq3f-393p"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-qqgx-2p2h-9c37"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-qrmc-fj45-qfc2"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-qw6h-vgh9-j6wx"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-qwcr-r2fm-qrc7"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-r292-9mhp-454m"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-r5fr-rjxr-66jc"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-r628-mhmh-qjhw"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-r6q2-hw4h-h46w"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-rcw4-f5rp-g42v"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-rgw5-rvv9-x895"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-rhx6-c78j-4q9w"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-rm36-94g8-835r"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-rrrm-qjm4-v8hf"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-rv95-896h-c2vc"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-v422-hmwv-36x6"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 3.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-v6h2-p8h4-qcjw"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 3.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-v88g-cgmw-v5xw"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.6): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-v8w9-2789-6hhr"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-vcc3-ghjq-m6fr"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.6): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-vfvf-mqq8-rwqc"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-vh95-rmgr-6w4m"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.6): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-vmf3-w455-68vh"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.9): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-w457-6q6x-cgp9"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-w573-4hg7-7wgq"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-w5hq-g745-h8pq"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-w8wr-v893-vjvp"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-w9mr-4mfr-499f"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 5.3): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-wc69-rhjr-hc9g"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-wrvr-8mpx-r7pp"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-x55w-vjjp-222r"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-x5pg-88wf-qq4p"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-x5rq-j2xg-h7qm"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-x8qc-rrcw-4r46"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-xc7v-wxcw-j472"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-xcpc-8h2w-3j85"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-xf7w-r453-m56c"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 7.5): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-xhpv-hc6g-r9c6"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.1): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-xjpj-3mr7-gcpf"
+ignoreUntil = 2026-12-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 8.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-xv26-6w52-cph6"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.2): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-xvch-5gv4-984h"
+ignoreUntil = 2026-11-24
+reason = "Baseline brownfield 2026-10-25 (CVSS 9.8): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-xw65-4hp5-5hc7"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 4.7): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "GHSA-xxjr-mmjv-4gpg"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 6.9): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+
+[[IgnoredVulns]]
+id = "MAL-2023-462"
+ignoreUntil = 2027-01-23
+reason = "Baseline brownfield 2026-10-25 (CVSS 0): đã biết, xử lý theo docs/security-backlog-dependencies.md"
+

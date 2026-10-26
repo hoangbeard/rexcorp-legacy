@@ -1,0 +1,80 @@
+name: SAST
+
+# Workflow mới, chạy song song với các workflow cũ của repo (chưa sửa chúng ở module này).
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 3 * * 1' # kiểm kê hằng tuần toàn bộ finding hiện có (không chặn)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  semgrep:
+    name: SAST (Semgrep CE, chỉ chặn finding mới)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      SEMGREP_IMAGE: semgrep/semgrep:1.182.0@sha256:4a34048c04fef049f71665047f074cffb00cc3d89482f965a5cd151d589237af
+      # Chỉ có giá trị trên sự kiện pull_request; các sự kiện khác để rỗng. Dùng làm phương án dự phòng.
+      BASE_SHA: ${{ github.event.pull_request.base.sha }}
+    steps:
+      - name: Checkout (toàn bộ lịch sử, để Semgrep lấy được commit gốc)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Chuẩn bị thư mục báo cáo (ngoài thư mục được quét)
+        run: mkdir -p "$RUNNER_TEMP/sast-out"
+
+      - name: Semgrep gate trên pull request, chặn ERROR mới so với nhánh gốc
+        # --baseline-commit: chỉ giữ finding KHÔNG có trong commit gốc của pull request.
+        # Semgrep cần git: cho phép thư mục /src (thuộc user của runner) bằng biến môi trường GIT_CONFIG_*.
+        # Commit gốc = HEAD^1 của merge commit mà actions/checkout lấy trên sự kiện pull_request: đó là đỉnh nhánh gốc
+        # TẠI LÚC CHẠY. github.event.pull_request.base.sha là đỉnh lúc mở pull request, có thể cũ hơn nếu nhánh gốc đã
+        # tiến lên (đã đo trên GitHub ngày 2026-10-25: dùng base.sha làm 1 finding của nhánh gốc bị tính nhầm là của
+        # pull request). Nếu checkout không phải merge commit (không có HEAD^2) thì dùng base.sha.
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          if git rev-parse --verify --quiet HEAD^2 >/dev/null; then
+            BASE_COMMIT="$(git rev-parse HEAD^1)"
+          else
+            BASE_COMMIT="$BASE_SHA"
+          fi
+          echo "baseline-commit = $BASE_COMMIT (base.sha của sự kiện = $BASE_SHA)"
+          docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp \
+            -e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=safe.directory -e GIT_CONFIG_VALUE_0=/src \
+            -v "$GITHUB_WORKSPACE":/src -v "$RUNNER_TEMP/sast-out":/out -w /src "$SEMGREP_IMAGE" \
+            semgrep scan \
+            --config p/default \
+            --metrics off --disable-version-check --no-rewrite-rule-ids \
+            --severity ERROR --error \
+            --baseline-commit "$BASE_COMMIT" \
+            --sarif-output /out/semgrep-gate.sarif
+
+      - name: Semgrep kiểm kê toàn bộ finding mọi mức (không chặn, không baseline)
+        if: ${{ !cancelled() }}
+        run: |
+          docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp \
+            -v "$GITHUB_WORKSPACE":/src -v "$RUNNER_TEMP/sast-out":/out -w /src "$SEMGREP_IMAGE" \
+            semgrep scan \
+            --config p/default \
+            --metrics off --disable-version-check --no-rewrite-rule-ids \
+            --sarif-output /out/semgrep-all.sarif
+
+      - name: Lưu báo cáo SARIF làm artifact
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: semgrep-sarif
+          path: ${{ runner.temp }}/sast-out/*.sarif
+          if-no-files-found: error
+          retention-days: 30

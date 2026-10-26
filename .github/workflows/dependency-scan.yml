@@ -1,0 +1,55 @@
+name: Dependency scan
+
+# Workflow mới, chạy song song với các workflow cũ của repo (chưa sửa chúng ở module này).
+# Gate chỉ chặn lỗ hổng MỚI: lỗ hổng đã biết nằm trong osv-scanner.toml (baseline, mỗi mục có ignoreUntil).
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 3 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  osv-scanner:
+    name: SCA (OSV-Scanner, baseline)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      OSV_SCANNER_IMAGE: ghcr.io/google/osv-scanner:v2.6.0@sha256:afd838850ac1a0fcc15ff4a041dc9ba11123c3f0d2666217a5f0fcf9222b55fa
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: OSV-Scanner quét lockfile, bỏ qua lỗ hổng trong baseline (gate)
+        # osv-scanner.toml ở gốc repo được tự áp dụng cho package-lock.json cùng thư mục.
+        run: |
+          docker run --rm --user "$(id -u):$(id -g)" \
+            -v "$GITHUB_WORKSPACE":/src -w /src "$OSV_SCANNER_IMAGE" \
+            scan source -r /src --verbosity error
+
+      - name: Xuất SARIF làm bằng chứng
+        if: ${{ !cancelled() }}
+        run: |
+          code=0
+          docker run --rm --user "$(id -u):$(id -g)" \
+            -v "$GITHUB_WORKSPACE":/src -w /src "$OSV_SCANNER_IMAGE" \
+            scan source -r /src --verbosity error --format sarif --output-file /src/osv-scanner.sarif || code=$?
+          [ "$code" -le 1 ] || exit "$code"
+
+      - name: Lưu báo cáo SARIF làm artifact
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: osv-scanner-sarif
+          path: osv-scanner.sarif
+          if-no-files-found: error
+          retention-days: 30
