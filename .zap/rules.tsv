@@ -1,0 +1,32 @@
+# Tiêu chí gate DAST của rexcorp-legacy (ZAP baseline). Cùng bộ rule với rexcorp-app. Định dạng: <mã rule><TAB><mức><TAB><ghi chú>.
+# Mức: FAIL = làm gate đỏ (exit 1); WARN = báo, không chặn (exit 2 nếu không có FAIL); INFO = chỉ liệt kê; IGNORE = bỏ qua.
+# Rule không có trong file này mặc định là WARN. Mỗi dòng FAIL/IGNORE phải có căn cứ ở cột ghi chú.
+# Quy định: SECURITY-GATE.md, mục "DAST". Quyết định: rexcorp-app/docs/adr/0007-dast-zap-baseline-rules.md.
+# Người duyệt thay đổi file này: người phụ trách bảo mật, qua pull request.
+
+# --- FAIL: kiểm được bằng máy, sửa rẻ; chặn để lỗi đã sửa không quay lại (cột 3: requirement ASVS 5.0.0 gần nhất) ---
+10021	FAIL	ASVS 3.4.4 (L2): X-Content-Type-Options: nosniff trên mọi phản hồi
+10038	FAIL	ASVS 3.4.3 (L2): có Content-Security-Policy
+10020	FAIL	ASVS 3.4.6 (L2): chống bị nhúng vào iframe, dùng frame-ancestors của CSP
+10037	FAIL	ASVS 13.4.6 (L3, gần nhất): không lộ thông tin thành phần backend qua X-Powered-By
+90022	FAIL	ASVS 16.5.1 (L2): thông báo lỗi chung chung, không lộ thông tin nội bộ
+10028	FAIL	ASVS 3.7.2 (L2): chỉ chuyển hướng ra ngoài tới đích trong allowlist
+10010	FAIL	ASVS 3.3.4 (L2): cookie phiên phải có HttpOnly
+
+# --- WARN: có giá trị, nhưng chưa chặn ---
+90004	WARN	Cross-Origin-Resource-Policy (cách ly site). Không có trong ASVS L1; nâng lên FAIL khi ADR cho phép
+10035	WARN	ASVS 3.4.1 (L1, HSTS): chỉ kiểm được khi quét qua HTTPS, nên baseline qua HTTP không thấy. Kiểm ở môi trường staging có TLS
+10011	WARN	ASVS 3.3.1 (L1, cookie Secure): chỉ có ý nghĩa khi có TLS. Ứng dụng chạy HTTP trong lab
+10054	WARN	ASVS 3.3.2 (L2, SameSite). Ứng dụng chạy HTTP trong lab
+10003	WARN	Thư viện JS có lỗ hổng: SCA (module 05) mới là nơi quyết định, DAST chỉ phát hiện thêm
+10055	WARN	CSP thiếu directive không có fallback: tinh chỉnh CSP, chưa chặn
+
+# --- IGNORE: ghi lý do và hạn xem lại ---
+10049	IGNORE	Informational: API danh mục công khai, cache được là chủ đích. Xem lại 2027-04-06
+10109	IGNORE	Informational: chỉ nhận diện ứng dụng web hiện đại, không phải lỗ hổng. Xem lại 2027-04-06
+10111	IGNORE	Informational: ZAP nhận diện request đăng nhập. Xem lại 2027-04-06
+10112	IGNORE	Informational: ZAP nhận diện cơ chế session. Xem lại 2027-04-06
+
+# --- Phạm vi: không quét những URL này ---
+# Khi quét có đăng nhập, đừng để spider bấm vào liên kết đăng xuất: nó hủy session đang dùng.
+*	OUTOFSCOPE	.*/logout.*

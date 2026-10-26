@@ -1,0 +1,41 @@
+{
+  "site": "legacy",
+  "issues": [
+    {
+      "id": "10020",
+      "name": "Missing Anti-clickjacking Header",
+      "state": "inprogress",
+      "link": "docs/security-backlog.lab-07.md (DAST-101)"
+    },
+    {
+      "id": "10021",
+      "name": "X-Content-Type-Options Header Missing",
+      "state": "inprogress",
+      "link": "docs/security-backlog.lab-07.md (DAST-101)"
+    },
+    {
+      "id": "10038",
+      "name": "Content Security Policy (CSP) Header Not Set",
+      "state": "inprogress",
+      "link": "docs/security-backlog.lab-07.md (DAST-101)"
+    },
+    {
+      "id": "10037",
+      "name": "Server Leaks Information via X-Powered-By",
+      "state": "inprogress",
+      "link": "docs/security-backlog.lab-07.md (DAST-102)"
+    },
+    {
+      "id": "10028",
+      "name": "Off-site Redirect",
+      "state": "inprogress",
+      "link": "docs/security-backlog.lab-07.md (DAST-103)"
+    },
+    {
+      "id": "90022",
+      "name": "Application Error Disclosure (chỉ xuất hiện khi spider đi tới /allocations)",
+      "state": "inprogress",
+      "link": "docs/security-backlog.lab-07.md (DAST-104)"
+    }
+  ]
+}

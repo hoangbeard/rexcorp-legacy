@@ -1,0 +1,24 @@
+# Dựng rexcorp-legacy để quét DAST: ứng dụng + MongoDB trong một mạng nội bộ của Docker.
+# Không có `ports:`, nên không cổng nào được publish ra máy host. `internal: true` cắt luôn đường ra Internet.
+# Chạy từ thư mục gốc của rexcorp-legacy:
+#   docker compose -p rxdast -f compose.dast.yaml up -d --build
+name: rxdast
+services:
+  web:
+    build: .
+    environment:
+      NODE_ENV: development
+      MONGODB_URI: mongodb://mongo:27017/nodegoat
+    command: sh -c "until nc -z -w 2 mongo 27017; do sleep 2; done; node artifacts/db-reset.js && npm start"
+    networks:
+      dast:
+        aliases: [legacy]
+    depends_on: [mongo]
+  mongo:
+    image: mongo:4.4@sha256:4be76f674fc4b27859816811b8baa3c51830eb1dbf4ca81a51e26b79edd662ef
+    user: mongodb
+    networks: [dast]
+networks:
+  dast:
+    name: rxdast-net
+    internal: true
