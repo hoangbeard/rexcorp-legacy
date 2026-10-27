@@ -1,6 +1,10 @@
 name: E2E Test
 on: [push, pull_request]
 
+# Quyền tối thiểu cho GITHUB_TOKEN ở mọi job (Lab 09): chỉ đọc mã nguồn.
+permissions:
+  contents: read
+
 jobs:
   e2e-test:
     name: Node.js
@@ -13,17 +17,17 @@ jobs:
 
     steps:
       - name: Checkout https://github.com/${{ github.repository }}@${{ github.ref }}
-        uses: actions/checkout@v2
+        uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
         with:
           persist-credentials: false
 
       - name: Set up Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e # v1.4.6
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Use cache
-        uses: actions/cache@v2
+        uses: actions/cache@8492260343ad570701412c2f464a5877dc76bace # v2
         with:
           path: |
             ~/.npm
@@ -55,7 +59,7 @@ jobs:
 
       - name: Upload cypress artifacts
         if: failure() && (steps.test-suite.outcome == 'failure')
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@82c141cc518b40d92cc801eee768e7aafc9c2fa2 # v2.3.1
         with:
           name: cypress-artifacts-node${{ matrix.node-version }}
           path: test/e2e/screenshots
