@@ -1,6 +1,10 @@
 name: Lint
 on: [push, pull_request]
 
+# Quyền tối thiểu cho GITHUB_TOKEN ở mọi job (Lab 09): chỉ đọc mã nguồn.
+permissions:
+  contents: read
+
 jobs:
   lint:
     name: Node.js
@@ -13,12 +17,12 @@ jobs:
 
     steps:
       - name: Checkout https://github.com/${{ github.repository }}@${{ github.ref }}
-        uses: actions/checkout@v2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Set up Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ matrix.node-version }}
 
